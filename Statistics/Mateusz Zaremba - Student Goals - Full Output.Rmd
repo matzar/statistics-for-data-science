@@ -1,0 +1,77 @@
+---
+title: "Statistical Data Analysis of Student Goals - Full Output"
+author: Mateusz Zaremba
+date: November 9, 2019
+output: 
+  pdf_document:
+    toc: false
+    toc_depth: 2
+    number_sections: true
+    fig_caption: false
+    df_print: kable
+    highlight: tango
+    citation_package: natbib
+    keep_tex: false
+fontzise: 11pt
+geometry: margin=1.5in
+documentclass: report
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE, cache = FALSE, fig.cap = "...")
+```
+
+```{r}
+# load external script
+source("source/DataManipulation.R")
+```
+
+```{r}
+## DATA EXPLORATION ##################################################################
+# gender in numbers
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = sex, fill = sex))
+# subject by gender
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = sex, fill = subject))
+#subject by gender with alpha blending
+ggplot(data = dat) + 
+  geom_bar(alpha = 0.85, mapping = aes(x = sex, fill = subject))
+#subject by gender and normalizing using position = "fill"
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = sex, fill = subject), position = "fill")
+#subject by gender and normalizing using position = "dodge" to place overlapping objects directly beside one another
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = sex, fill = subject), position = "dodge")
+# age by gender
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = age, fill = sex))
+# age by subject
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = age, fill = subject))
+
+# course year by gender
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = year, fill = sex))
+# "expect my courses this semester to be very interesting" by gender
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = IR, fill = sex))
+# "expect my courses this semester to be very enjoyable" by gender
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = EJ, fill = sex))
+# relative importance by gender
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = MG, fill = sex))
+
+#subject by gender and normalizing using position = "dodge" to place overlapping objects directly beside one another
+ggplot(data = dat) + 
+  geom_bar(mapping = aes(x = sex, fill = subject), position = "dodge")
+
+# plot answers to q1 with relation to the student's year
+ggplot(data = dat) + 
+  geom_point(mapping = aes(x = year, y = Q1, colour = year)) + labs (title = "Un-jittered graph")
+
+ggplot(data = dat) + 
+  geom_jitter(mapping = aes(x = year, y = Q1, colour = year)) + labs (title = "Jittered graph")
+##############################################################################
+```
